@@ -113,6 +113,8 @@ public abstract class Column implements Serializable {
         return "NUMERIC";
       case TIMESTAMP:
         return "TIMESTAMP";
+      case JSON:
+        return "JSON";
       case ARRAY:
         Type arrayType = type.getArrayElementType();
         return "ARRAY<" + typeString(arrayType, size) + ">";
@@ -193,6 +195,10 @@ public abstract class Column implements Serializable {
       return type(Type.numeric());
     }
 
+    public Builder json() {
+      return type(Type.json());
+    }
+
     public Builder max() {
       return size(-1);
     }
@@ -253,6 +259,9 @@ public abstract class Column implements Serializable {
     }
     if (spannerType.equals("NUMERIC")) {
       return t(Type.numeric(), null);
+    }
+    if (spannerType.equals("JSON")) {
+      return t(Type.json(), null);
     }
     if (spannerType.startsWith("ARRAY")) {
       // Substring "ARRAY<"xxx">"

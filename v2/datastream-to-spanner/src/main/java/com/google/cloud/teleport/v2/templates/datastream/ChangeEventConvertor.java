@@ -258,6 +258,10 @@ public class ChangeEventConvertor {
           columnValue =
               Value.date(ChangeEventTypeConvertor.toDate(changeEvent, colName, requiredField));
           break;
+        case JSON:
+          columnValue =
+            Value.json(ChangeEventTypeConvertor.toString(changeEvent, colName, requiredField));
+          break;
           // TODO(b/179070999) - Add support for other data types.
         default:
           throw new IllegalArgumentException(
